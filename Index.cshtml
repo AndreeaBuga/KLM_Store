@@ -1,0 +1,73 @@
+﻿@page
+@model KLM_Store.Pages.Brands.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand[0].BrandName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.BrandData.Brands) 
+{
+            string selectedRow = " ";
+            if (item.ID == Model.BrandID)
+            {
+                selectedRow = "table-success ";
+            }
+            <tr class=" @selectedRow ">
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandName)
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id ="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@if (Model.BrandData.Produse != null)
+{
+    <h3> Produse selectate de Brand </h3>
+    <table class ="table">
+
+        @foreach (var item in Model.BrandData.Brands)
+        {
+            string selectedRow = " ";
+            if (item.ID == Model.BrandID)
+            {
+                selectedRow = "table-success ";
+            }
+            <tr class =" @selectedRow " >
+
+                <td>
+                    @{
+                        foreach (var b in item.Produse)
+                        {
+
+                            @b.Nume
+
+                            <br/>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table >
+}
